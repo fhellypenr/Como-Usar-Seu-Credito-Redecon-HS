@@ -233,8 +233,14 @@
         <div class="tile" onclick="showDetail('construcao')">
           <div class="tile-icon">🏗️</div>
           <div class="tile-title">Construção</div>
-          <div class="tile-desc">Construção, reforma ou ampliação</div>
+          <div class="tile-desc">Construção ou ampliação de imóvel</div>
           <div class="tile-chip">2 cenários</div>
+        </div>
+        <div class="tile" onclick="showDetail('reforma')">
+          <div class="tile-icon">🔧</div>
+          <div class="tile-title">Reforma</div>
+          <div class="tile-desc">Reforma de imóvel já construído</div>
+          <div class="tile-chip">5 etapas</div>
         </div>
         <div class="tile" onclick="showDetail('reembolso')">
           <div class="tile-icon">💰</div>
@@ -473,7 +479,7 @@
   <!-- DETALHE: CONSTRUÇÃO -->
   <div id="detail-construcao" class="detail">
     <button class="back" onclick="goHome()">Voltar</button>
-    <div class="d-head"><div class="d-icon">🏗️</div><div><div class="d-title">Construção / Reforma / Ampliação</div><div class="d-sub">Selecione o seu cenário</div></div></div>
+    <div class="d-head"><div class="d-icon">🏗️</div><div><div class="d-title">Construção / Ampliação</div><div class="d-sub">Selecione o seu cenário</div></div></div>
 
     <div class="subtabs">
       <button class="subtab active" onclick="showScenario('construcao','a',this)">Terreno próprio</button>
@@ -521,6 +527,18 @@
             <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
           </div></div>
         </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos toda a documentação e abrimos o processo no portal da administradora</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análises simultâneas</div><div class="tl-d">Crédito, jurídica e matrícula do terreno são analisados em paralelo pela HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Liberação da 1ª etapa</div><div class="tl-d">Até 72h úteis após a averbação — o crédito é liberado para início da obra</div></div></div>
+            </div>
+          </div></div>
+        </div>
       </div>
       <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — 1ª etapa</b>Região de Pato Branco, com documentação em ordem. As etapas seguintes dependem do andamento da obra.</div></div>
     </div>
@@ -560,11 +578,87 @@
             <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
           </div></div>
         </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos toda a documentação e abrimos o processo no portal da administradora</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análises simultâneas</div><div class="tl-d">Crédito, jurídica e matrícula do terreno são analisados em paralelo pela HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">O terreno é registrado no nome do consorciado e a alienação fiduciária é averbada na matrícula</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Reembolso da 1ª etapa</div><div class="tl-d">Até 72h úteis após a averbação — o valor já executado pelo cliente é reembolsado</div></div></div>
+            </div>
+          </div></div>
+        </div>
       </div>
       <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — 1ª etapa</b>Após execução inicial da obra e aprovação pela administradora.</div></div>
     </div>
 
-    <div class="notebox"><b>Reforma e ampliação</b> são enquadradas dentro do processo de construção. Em situações específicas, analisamos a melhor forma de utilização do crédito para cada caso.</div>
+    <div class="notebox"><b>Ampliação</b> é enquadrada dentro do processo de construção. Em situações específicas, analisamos a melhor forma de utilização do crédito para cada caso.</div>
+    <div class="note">A documentação necessária é orientada caso a caso. Conte com a Redecon para acompanhar cada detalhe do seu processo.</div>
+  </div>
+
+  <!-- DETALHE: REFORMA -->
+  <div id="detail-reforma" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🔧</div><div><div class="d-title">Reforma</div><div class="d-sub">Reforma de imóvel já construído, próprio do consorciado</div></div></div>
+
+    <div class="steps">
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise estratégica</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Verificamos a <b>matrícula do imóvel</b>, a averbação da construção existente, certidões negativas e documentação de renda antes do envio oficial.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">A <b>decisão final de aprovação</b> é de competência exclusiva da HS Consórcios.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do consorciado</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Restrições:</b> não pode ter pendências ativas em SPC ou SERASA.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Regularidade e documentação da obra</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl warn">⚠ ATENÇÃO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Matrícula:</b> o imóvel precisa estar regularizado, com toda a construção existente averbada.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Projeto original:</b> é necessário apresentar o projeto original da construção, com tudo que está averbado.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Documentação da reforma:</b> memorial descritivo, cronograma e orçamento da obra, providenciados por engenheiro ou arquiteto, para a HS verificar.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Avaliação e liberação do crédito</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl ok">COMO FUNCIONA</span>
+          <div class="item"><div class="idot"></div><div class="itxt">Neste tipo de processo, a HS vai considerar o <b>valor da área construída</b> do imóvel — o valor do terreno não entra no cálculo.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Exemplo: imóvel de <b>R$ 1.000.000</b>, sendo R$ 300 mil de terreno e R$ 700 mil de área construída → considerado apenas <b>R$ 700 mil</b>.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Isso é apurado na avaliação de engenharia, desde que tudo esteja <b>averbado e regularizado</b>.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Diferente da construção em terreno, aqui o crédito é liberado em <b>uma única etapa</b>, no valor de <b>100%</b>, se tudo estiver dentro dos critérios.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro (boleto ou desconto do crédito).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito no pagamento.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas cartorárias para averbação da alienação fiduciária.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Seguro do imóvel:</b> verificado após laudo; se necessário, incluído no contrato.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="tl">
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos toda a documentação e abrimos o processo no portal da administradora</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análises simultâneas</div><div class="tl-d">Crédito, jurídica e avaliação da área construída são analisados em paralelo pela HS</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro avalia a construção existente e o comitê emite o parecer final</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Pagamento liberado</div><div class="tl-d">Até 72h úteis após a averbação — o valor é liberado em uma única etapa</div></div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, com documentação e averbação em ordem.</div></div>
     <div class="note">A documentação necessária é orientada caso a caso. Conte com a Redecon para acompanhar cada detalhe do seu processo.</div>
   </div>
 
@@ -677,6 +771,17 @@
             <div class="item"><div class="idot"></div><div class="itxt">Não há cobrança de <b>ITBI</b> — o imóvel já está no nome do consorciado.</div></div>
           </div></div>
         </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos a documentação e abrimos o processo junto à administradora</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análise pela administradora</div><div class="tl-d">Crédito, jurídica e enquadramento no Interveniente Quitante são avaliados pela HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Quitação e registro</div><div class="tl-d">A HS quita o financiamento e o Registro de Imóveis averba a nova alienação fiduciária</div></div></div>
+            </div>
+          </div></div>
+        </div>
       </div>
       <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, com documentação regularizada.</div></div>
     </div>
@@ -714,6 +819,17 @@
             <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro.</div></div>
             <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> duas passagens — uma para cada contrato.</div></div>
             <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura</b> e <b>certificados digitais</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos a documentação e abrimos o processo junto à administradora</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análise e 1º Contrato</div><div class="tl-d">A HS quita o financiamento junto ao banco e registra a alienação fiduciária em seu favor</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">2º Contrato — Transmissão</div><div class="tl-d">O imóvel é transferido ao consorciado e a diferença do crédito é paga ao vendedor</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Registro concluído</div><div class="tl-d">As duas passagens pelo Registro de Imóveis são formalizadas e o processo é encerrado</div></div></div>
+            </div>
           </div></div>
         </div>
       </div>
@@ -756,6 +872,16 @@
             <div class="item"><div class="idot"></div><div class="itxt"><b>Não há ITBI</b> nesta etapa — o imóvel já está no nome do consorciado.</div></div>
           </div></div>
         </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Alienação do imóvel próprio</div><div class="tl-d">Montagem, análise, vistoria e registro da garantia junto à HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Crédito liberado</div><div class="tl-d">Com a garantia averbada, o recurso fica disponível para uso no leilão</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Participação no leilão</div><div class="tl-d">O cliente arremata o imóvel e envia a Carta de Arrematação à HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Pagamento programado</div><div class="tl-d">Até 72h úteis após o envio da Carta de Arrematação</div></div></div>
+            </div>
+          </div></div>
+        </div>
       </div>
       <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — alienação do imóvel próprio</b>Após conclusão, o crédito fica disponível para uso no leilão.</div></div>
     </div>
@@ -770,6 +896,16 @@
             <div class="item"><div class="idot"></div><div class="itxt">O processo segue o <b>fluxo padrão de reembolso</b>, sem envolvimento de vendedor.</div></div>
           </div></div>
         </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Participação no leilão</div><div class="tl-d">O cliente arremata o imóvel à vista, com carta de crédito já contemplada</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e envio</div><div class="tl-d">Documentação e comprovante de pagamento são enviados à HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análise pela administradora</div><div class="tl-d">Crédito, jurídica e matrícula são avaliados em paralelo</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Pagamento na conta do consorciado</div><div class="tl-d">Até 72h úteis após a aprovação — o valor é depositado diretamente para você</div></div></div>
+            </div>
+          </div></div>
+        </div>
       </div>
       <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, seguindo o fluxo padrão de reembolso.</div></div>
     </div>
@@ -782,6 +918,16 @@
             <div class="item"><div class="idot"></div><div class="itxt">O cliente <b>financia o imóvel do leilão</b> e, posteriormente, utiliza o crédito do consórcio para quitar esse financiamento via Interveniente Quitante.</div></div>
             <div class="item"><div class="idot"></div><div class="itxt"><b>Ponto crítico:</b> o consórcio quita apenas <b>100% do financiamento</b> — pagamento parcial não é permitido.</div></div>
             <div class="item"><div class="idot"></div><div class="itxt">É necessário verificar se o saldo devedor do financiamento está dentro do valor do crédito disponível.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Participação no leilão</div><div class="tl-d">O cliente financia o imóvel arrematado junto a uma instituição financeira</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análise de viabilidade</div><div class="tl-d">A HS verifica o enquadramento do contrato no Interveniente Quitante</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Quitação do financiamento</div><div class="tl-d">A HS quita 100% do saldo devedor junto à instituição financeira</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">Baixa do gravame anterior e inclusão da alienação fiduciária em favor da HS</div></div></div>
+            </div>
           </div></div>
         </div>
       </div>
