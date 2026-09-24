@@ -131,6 +131,53 @@
   .p-label{font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
   .p-label b{display:block;font-size:13.5px;color:var(--ink);font-weight:600;margin-bottom:2px;}
   .note{font-size:12px;color:var(--ink-soft);line-height:1.6;padding-top:13px;border-top:1px solid var(--line);}
+
+  /* TELAS MAIORES (tablet/desktop) — o site é usado em celular via link, mas também abre em navegador de computador */
+  @media (min-width: 680px){
+    body{padding:3.2rem 1.5rem 4rem;}
+    .container{max-width:760px;}
+    .logo{height:42px;}
+    .top-meta{font-size:13px;}
+    .headline{font-size:36px;}
+    .sub{font-size:15.5px;margin-bottom:1.7rem;}
+    .toggle{padding:5px;}
+    .toggle button{font-size:15px;padding:12px 0;}
+    .contact{padding:1.15rem 1.4rem;margin-bottom:1.8rem;}
+    .contact-txt{font-size:13px;}
+    .contact-phone{font-size:16px;}
+    .wa{font-size:13px;padding:9px 18px;}
+    .cat-label{font-size:12.5px;margin-bottom:14px;}
+    .grid{grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.4rem;}
+    .tile{padding:1.4rem 1.15rem 1.15rem;min-height:170px;border-radius:16px;}
+    .tile-icon{width:50px;height:50px;font-size:22px;border-radius:13px;}
+    .tile-title{font-size:15px;}
+    .tile-desc{font-size:12px;}
+    .tile-chip{font-size:10px;padding:4px 9px;}
+    .outro{padding:1.2rem 1.4rem;margin-bottom:1.8rem;}
+    .outro-title{font-size:15px;}
+    .outro-desc{font-size:12.5px;}
+    .foot{font-size:12.5px;}
+
+    .d-icon{width:56px;height:56px;font-size:26px;border-radius:14px;}
+    .d-title{font-size:23px;}
+    .d-sub{font-size:13.5px;}
+    .steps{gap:11px;}
+    .step-h{padding:1.05rem 1.35rem;}
+    .step-n{width:28px;height:28px;font-size:12.5px;}
+    .step-t{font-size:15px;}
+    .step-b{padding:0 1.35rem 1.2rem;}
+    .itxt{font-size:13.5px;}
+    .taglbl{font-size:11.5px;}
+    .tl-t{font-size:13.5px;}
+    .tl-d{font-size:12.5px;}
+    .p-num{font-size:32px;}
+    .p-label b{font-size:15px;}
+    .p-label{font-size:13.5px;}
+    .note{font-size:13px;}
+  }
+  @media (min-width: 680px) and (max-width: 899px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+  }
 </style>
 </head>
 <body>
