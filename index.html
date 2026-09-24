@@ -133,6 +133,18 @@
   .p-label b{display:block;font-size:13.5px;color:var(--ink);font-weight:600;margin-bottom:2px;}
   .note{font-size:12px;color:var(--ink-soft);line-height:1.6;padding-top:13px;border-top:1px solid var(--line);}
 
+  .taglbl.ok{color:#2E6B45;}
+  .notebox{border-left:3px solid var(--ink);padding:.1rem 0 .1rem 14px;margin-bottom:1.3rem;font-size:12.5px;color:var(--ink-soft);line-height:1.65;}
+  .notebox b{color:var(--ink);font-weight:700;}
+  .notebox.warn{border-color:var(--warn);}
+  .notebox a{color:var(--navy);font-weight:700;text-decoration:none;}
+
+  .subtabs{display:flex;gap:8px;margin-bottom:1.1rem;flex-wrap:wrap;}
+  .subtab{font-size:11.5px;font-weight:600;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;font-family:'Inter';}
+  .subtab.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .scenario{display:none;}
+  .scenario.active{display:block;}
+
   /* TELAS MAIORES (tablet/desktop) — o site é usado em celular via link, mas também abre em navegador de computador */
   @media (min-width: 680px){
     body{padding:3.2rem 1.5rem 4rem;}
@@ -218,29 +230,29 @@
           <div class="tile-desc">Compra de imóvel pronto de um vendedor</div>
           <div class="tile-chip">6 etapas</div>
         </div>
-        <div class="tile" onclick="showDetail('em-breve')">
+        <div class="tile" onclick="showDetail('construcao')">
           <div class="tile-icon">🏗️</div>
           <div class="tile-title">Construção</div>
           <div class="tile-desc">Construção, reforma ou ampliação</div>
-          <div class="tile-chip soon">em breve</div>
+          <div class="tile-chip">2 cenários</div>
         </div>
-        <div class="tile" onclick="showDetail('em-breve')">
+        <div class="tile" onclick="showDetail('reembolso')">
           <div class="tile-icon">💰</div>
           <div class="tile-title">Reembolso</div>
           <div class="tile-desc">Imóvel já comprado à vista</div>
-          <div class="tile-chip soon">em breve</div>
+          <div class="tile-chip">5 etapas</div>
         </div>
-        <div class="tile" onclick="showDetail('em-breve')">
+        <div class="tile" onclick="showDetail('quitacao')">
           <div class="tile-icon">📄</div>
           <div class="tile-title">Quitação de financiamento</div>
           <div class="tile-desc">Uso do crédito para quitar financiamento</div>
-          <div class="tile-chip soon">em breve</div>
+          <div class="tile-chip">2 cenários</div>
         </div>
-        <div class="tile" onclick="showDetail('em-breve')">
+        <div class="tile" onclick="showDetail('leilao')">
           <div class="tile-icon">🔨</div>
           <div class="tile-title">Imóvel de leilão</div>
           <div class="tile-desc">Arrematação judicial ou extrajudicial</div>
-          <div class="tile-chip soon">em breve</div>
+          <div class="tile-chip">3 formas</div>
         </div>
       </div>
     </div>
@@ -264,7 +276,7 @@
       </div>
     </div>
 
-    <div class="outro" onclick="showDetail('em-breve')">
+    <div class="outro" onclick="showDetail('outro')">
       <div class="outro-ic">💬</div>
       <div class="outro-txt"><div class="outro-title">Outro tipo</div><div class="outro-desc">Fale diretamente com o escritório</div></div>
       <div class="outro-arrow">→</div>
@@ -458,6 +470,334 @@
     <div class="note">Cada processo tem suas particularidades. Estamos aqui para analisar o seu caso e orientar em cada etapa do caminho.</div>
   </div>
 
+  <!-- DETALHE: CONSTRUÇÃO -->
+  <div id="detail-construcao" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🏗️</div><div><div class="d-title">Construção / Reforma / Ampliação</div><div class="d-sub">Selecione o seu cenário</div></div></div>
+
+    <div class="subtabs">
+      <button class="subtab active" onclick="showScenario('construcao','a',this)">Terreno próprio</button>
+      <button class="subtab" onclick="showScenario('construcao','b',this)">Comprar terreno + construir</button>
+    </div>
+
+    <div id="construcao-a" class="scenario active">
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise estratégica</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">Verificamos a <b>matrícula do terreno</b>, certidões negativas e documentação de renda antes do envio oficial.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">A <b>decisão final de aprovação</b> é de competência exclusiva da HS Consórcios.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do consorciado</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Restrições:</b> não pode ter pendências ativas em SPC ou SERASA.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Regularidade do imóvel e da obra</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl warn">⚠ ATENÇÃO</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Matrícula:</b> terreno deve estar regularizado e livre de ônus que impeçam a alienação.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Documentação da obra:</b> deve estar em ordem para dar início ao processo — cada caso será analisado individualmente.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Liberação por etapas</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl ok">COMO FUNCIONA</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>1ª etapa:</b> liberada de forma <b>antecipada</b>, logo após a aprovação do contrato e averbação da garantia no Registro de Imóveis — o cliente não precisa construir nada antes para receber. Valor máximo de <b>30% do crédito</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Etapas intermediárias:</b> liberadas conforme cronograma de obra elaborado pelo engenheiro responsável, com orçamento detalhado. Mínimo de <b>4 etapas no total</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Última etapa:</b> mínimo de <b>10% do crédito</b>, retida e liberada somente após a averbação final da construção na matrícula.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro a cada etapa (boleto ou desconto do crédito).</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito no pagamento.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas cartorárias para averbação da alienação fiduciária.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Seguro do imóvel:</b> verificado após laudo; se necessário, incluído no contrato.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — 1ª etapa</b>Região de Pato Branco, com documentação em ordem. As etapas seguintes dependem do andamento da obra.</div></div>
+    </div>
+
+    <div id="construcao-b" class="scenario">
+      <div class="notebox warn"><b>Atenção:</b> neste cenário, a 1ª etapa da construção precisa ser <b>executada antes</b> do recebimento do crédito. O reembolso dessa etapa inicial ocorre após o processo ser aprovado pela administradora.</div>
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise estratégica</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">Verificamos a <b>matrícula do terreno</b> (que passará para o nome do cliente), certidões negativas e documentação de renda.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">A <b>decisão final de aprovação</b> é de competência exclusiva da HS Consórcios.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do consorciado</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Restrições:</b> não pode ter pendências ativas em SPC ou SERASA.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Liberação por etapas</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl ok">COMO FUNCIONA</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>1ª etapa:</b> executada pelo cliente antes do processo. Após aprovação, a administradora reembolsa essa etapa. Valor máximo de <b>30% do crédito</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Etapas seguintes:</b> liberadas conforme cronograma do engenheiro. Mínimo de <b>4 etapas no total</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Última etapa:</b> mínimo de <b>10% do crédito</b>, retida até averbação final da construção.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>ITBI:</b> imposto municipal pago à Prefeitura na aquisição do terreno.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro a cada etapa.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas cartorárias para averbação da alienação fiduciária.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — 1ª etapa</b>Após execução inicial da obra e aprovação pela administradora.</div></div>
+    </div>
+
+    <div class="notebox"><b>Reforma e ampliação</b> são enquadradas dentro do processo de construção. Em situações específicas, analisamos a melhor forma de utilização do crédito para cada caso.</div>
+    <div class="note">A documentação necessária é orientada caso a caso. Conte com a Redecon para acompanhar cada detalhe do seu processo.</div>
+  </div>
+
+  <!-- DETALHE: REEMBOLSO -->
+  <div id="detail-reembolso" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">💰</div><div><div class="d-title">Reembolso</div><div class="d-sub">Imóvel adquirido à vista após a contemplação</div></div></div>
+
+    <div class="notebox warn"><b>2 condições obrigatórias:</b><br>1. A carta de crédito deve estar <b>contemplada e em nome do consorciado</b> antes da compra do imóvel.<br>2. Todas as certidões negativas devem estar <b>em ordem no momento da escritura</b> — nenhuma dispensa é aceita.</div>
+
+    <div class="steps">
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Valor liberado</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">O valor liberado corresponde ao <b>menor valor entre o crédito disponível e o valor pago pelo imóvel</b> conforme escritura.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Exemplo: crédito de R$ 300 mil + imóvel de R$ 250 mil → liberado <b>R$ 250 mil</b>.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Exemplo: crédito de R$ 300 mil + imóvel de R$ 400 mil → liberado <b>R$ 300 mil</b>.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do consorciado</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Regularidade do imóvel</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl warn">⚠ ATENÇÃO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Averbação:</b> toda área construída deve estar 100% averbada na matrícula.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Ônus:</b> matrícula deve estar livre de hipotecas, penhoras, usufruto ou cláusulas resolutivas.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Garantia:</b> avaliação da engenharia igual ou superior ao saldo devedor. Administradora considera <b>-20% do valor de mercado</b>.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro (boleto ou desconto do crédito).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas cartorárias para averbação da alienação fiduciária.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Seguro do imóvel:</b> verificado após laudo; se necessário, incluído no contrato.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">O <b>ITBI não é cobrado novamente</b> — já foi pago no momento da compra.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="tl">
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Pré-análise e montagem</div><div class="tl-d">Organizamos a documentação e abrimos o processo junto à administradora</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análise pela administradora</div><div class="tl-d">Crédito, jurídica e matrícula são avaliados em paralelo pela HS</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Pagamento na conta do consorciado</div><div class="tl-d">Até 72h úteis após a averbação — o valor é depositado diretamente para você</div></div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, com documentação regularizada.</div></div>
+    <div class="note">Sem vendedor envolvido — o pagamento vai direto para você. Cuidamos de todo o processo para que seja simples e tranquilo.</div>
+  </div>
+
+  <!-- DETALHE: QUITAÇÃO -->
+  <div id="detail-quitacao" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">📄</div><div><div class="d-title">Quitação de financiamento</div><div class="d-sub">Selecione o seu cenário</div></div></div>
+
+    <div class="subtabs">
+      <button class="subtab active" onclick="showScenario('quitacao','a',this)">Financiamento próprio</button>
+      <button class="subtab" onclick="showScenario('quitacao','b',this)">Financiamento de terceiro</button>
+    </div>
+
+    <div id="quitacao-a" class="scenario active">
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise e viabilidade</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">O contrato do financiamento é analisado previamente para verificar o <b>enquadramento nas regras do Interveniente Quitante</b> da administradora.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Verificamos matrícula, certidões negativas e documentação de renda antes do envio oficial.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do consorciado</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Regularidade do imóvel</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Averbação:</b> toda área construída deve estar 100% averbada na matrícula.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Garantia:</b> avaliação da engenharia igual ou superior ao saldo devedor. Administradora considera <b>-20% do valor de mercado</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Fluxo de pagamento</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="tl">
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">HS quita o financiamento</div><div class="tl-d">Pagamento direto à instituição financeira via Interveniente Quitante</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Instituição emite termo de quitação</div><div class="tl-d">Documento que comprova o encerramento do financiamento</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Retorno ao Registro de Imóveis</div><div class="tl-d">Cancelamento do gravame do financiamento e inclusão da alienação fiduciária da HS</div></div></div>
+              <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Processo concluído</div><div class="tl-d">Imóvel vinculado à HS como garantia até o fim do contrato de consórcio</div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas para baixa do gravame anterior e novo registro da alienação fiduciária.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Não há cobrança de <b>ITBI</b> — o imóvel já está no nome do consorciado.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, com documentação regularizada.</div></div>
+    </div>
+
+    <div id="quitacao-b" class="scenario">
+      <div class="notebox"><b>Como funciona este cenário:</b> por envolver dois contratos, o processo passa pelo Registro de Imóveis em dois momentos distintos. Isso é parte natural do fluxo e garante que cada etapa seja formalizada corretamente — o prazo estimado é um pouco maior para acomodar essa tramitação.</div>
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise e viabilidade</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">O contrato do financiamento é analisado para verificar o <b>enquadramento no Interveniente Quitante</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Verificamos matrícula, certidões negativas do consorciado e do vendedor antes do envio.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">1º Contrato — Quitação do financiamento</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl ok">ETAPA 1</span>
+            <div class="item"><div class="idot"></div><div class="itxt">O vendedor figura como <b>fiduciário</b>, ofertando o imóvel em garantia à HS Consórcios.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">A HS efetua o pagamento diretamente ao banco, quitando o financiamento via <b>Interveniente Quitante</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">A instituição financeira emite o <b>termo de quitação</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Retorno ao RI: cancelamento do gravame anterior e registro da <b>alienação fiduciária em favor da HS</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">2º Contrato — Transmissão ao consorciado</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl ok">ETAPA 2</span>
+            <div class="item"><div class="idot"></div><div class="itxt">Com a alienação fiduciária da HS já registrada, é confeccionado um instrumento de <b>cessão de direitos e obrigações</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">O imóvel é transferido ao consorciado — somente neste momento a titularidade muda.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">A HS realiza o pagamento da <b>diferença do crédito ao vendedor</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>ITBI:</b> imposto municipal pago à Prefeitura, pois há aquisição de imóvel de terceiro.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> duas passagens — uma para cada contrato.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura</b> e <b>certificados digitais</b>.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">90</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Um pouco mais de tempo em razão dos dois contratos e das duas passagens pelo Registro de Imóveis — cada etapa sendo cuidadosamente formalizada.</div></div>
+    </div>
+    <div class="note">A viabilidade começa com a análise do contrato de financiamento. Nos chame antes de qualquer decisão — orientamos você desde o primeiro passo.</div>
+  </div>
+
+  <!-- DETALHE: LEILÃO -->
+  <div id="detail-leilao" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🔨</div><div><div class="d-title">Imóvel de leilão</div><div class="d-sub">Existem diferentes formas de utilizar o crédito nessa situação</div></div></div>
+
+    <div class="subtabs">
+      <button class="subtab active" onclick="showScenario('leilao','a',this)">Garantia antecipada</button>
+      <button class="subtab" onclick="showScenario('leilao','b',this)">Reembolso</button>
+      <button class="subtab" onclick="showScenario('leilao','c',this)">Financiamento + Quitação</button>
+    </div>
+
+    <div id="leilao-a" class="scenario active">
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Como funciona</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">O cliente utiliza um <b>imóvel próprio como garantia</b> para liberar o crédito do consórcio antes do leilão.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Todo o processo de alienação do imóvel próprio precisa estar <b>concluído antes de participar do leilão</b> — o pagamento em leilão costuma ser imediato.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Após vencer o leilão, o cliente envia a <b>Carta de Arrematação</b> à HS, que programa o pagamento em até <b>72h úteis</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">Carta de crédito <b>contemplada e em nome do consorciado</b>.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Imóvel próprio <b>regularizado e livre de ônus</b> para ser utilizado como garantia.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">Processo de alienação do imóvel próprio <b>finalizado antes do leilão</b>.</div></div>
+          </div></div>
+        </div>
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+            <div class="item"><div class="idot"></div><div class="itxt">Custas da <b>alienação do imóvel próprio</b> (vistoria, contrato, registro, certificados).</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Não há ITBI</b> nesta etapa — o imóvel já está no nome do consorciado.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio — alienação do imóvel próprio</b>Após conclusão, o crédito fica disponível para uso no leilão.</div></div>
+    </div>
+
+    <div id="leilao-b" class="scenario">
+      <div class="notebox warn"><b>2 condições obrigatórias:</b><br>1. A carta de crédito deve estar <b>contemplada e em nome do consorciado</b> antes da compra no leilão.<br>2. Todas as certidões negativas devem estar <b>em ordem no momento da escritura</b> — nenhuma dispensa é aceita.</div>
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Como funciona</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">O cliente <b>arremata o imóvel à vista</b> e, após a compra, solicita o reembolso utilizando o crédito do consórcio.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">O valor reembolsado é limitado ao <b>menor valor entre o crédito disponível e o valor pago</b> no leilão.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">O processo segue o <b>fluxo padrão de reembolso</b>, sem envolvimento de vendedor.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, seguindo o fluxo padrão de reembolso.</div></div>
+    </div>
+
+    <div id="leilao-c" class="scenario">
+      <div class="notebox warn"><b>Atenção:</b> esta modalidade requer <b>análise de viabilidade caso a caso</b> antes de qualquer decisão.</div>
+      <div class="steps">
+        <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Como funciona</div><div class="step-a">▶</div></div>
+          <div class="step-b"><div class="step-b-in">
+            <div class="item"><div class="idot"></div><div class="itxt">O cliente <b>financia o imóvel do leilão</b> e, posteriormente, utiliza o crédito do consórcio para quitar esse financiamento via Interveniente Quitante.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt"><b>Ponto crítico:</b> o consórcio quita apenas <b>100% do financiamento</b> — pagamento parcial não é permitido.</div></div>
+            <div class="item"><div class="idot"></div><div class="itxt">É necessário verificar se o saldo devedor do financiamento está dentro do valor do crédito disponível.</div></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="notebox">Antes de tomar qualquer decisão, <b>fale com o escritório</b> para analisar a viabilidade do seu caso. <a href="https://wa.me/554630253227" target="_blank">Falar com a Redecon</a></div>
+    </div>
+    <div class="note">Cada situação de leilão é diferente. Antes de participar, fale com a Redecon — planejamos juntos a melhor forma de usar o seu crédito.</div>
+  </div>
+
+  <!-- DETALHE: OUTRO TIPO -->
+  <div id="detail-outro" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">💬</div><div><div class="d-title">Outro tipo de utilização</div><div class="d-sub">Cada situação tem suas particularidades</div></div></div>
+    <div class="notebox">Se a sua situação não se encaixa nas modalidades listadas, entre em contato com o escritório. Analisamos cada caso individualmente e orientamos sobre a melhor forma de utilizar o seu crédito. <a href="https://wa.me/554630253227" target="_blank">Falar com a Redecon</a></div>
+    <div class="note"><b>Redecon Consórcios</b><br>Rua Goianases, 536 – Pato Branco<br>(46) 3025-3227 &nbsp;|&nbsp; rede.con@hotmail.com</div>
+  </div>
+
   <!-- PLACEHOLDER -->
   <div id="detail-em-breve" class="detail">
     <button class="back" onclick="goHome()">Voltar</button>
@@ -485,6 +825,13 @@
   }
   function toggleStep(header){
     header.parentElement.classList.toggle('active');
+  }
+  function showScenario(prefix, key, btn){
+    var root = document.getElementById('detail-'+prefix);
+    root.querySelectorAll('.scenario').forEach(s=>s.classList.remove('active'));
+    document.getElementById(prefix+'-'+key).classList.add('active');
+    root.querySelectorAll('.subtab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
   }
 </script>
 </body>
