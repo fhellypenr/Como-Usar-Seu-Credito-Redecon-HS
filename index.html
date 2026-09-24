@@ -2,928 +2,442 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faturamento de Imóvel – Redecon Consórcios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Como usar seu crédito – Redecon Consórcios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f5f5f0;
-    color: #1a1a1a;
-    min-height: 100vh;
-    padding: 1.5rem 1rem 3rem;
+  :root{
+    --bg:#F6F3EC; --surface:#FFFFFF; --ink:#211D17; --ink-soft:#736C5E;
+    --line:#E7E0D0; --neutral:#F1EEE4;
+    --navy:#1E3460; --veic1:#D51442; --veic2:#FE4A33; --veic-deep:#A81638;
+    --warn:#8A4B14;
   }
-  .container { max-width: 480px; margin: 0 auto; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink);
+    min-height:100%; padding:1.6rem 1.1rem 3rem;
+    padding-top:calc(1.6rem + env(safe-area-inset-top,0px));
+  }
+  .container{max-width:460px;margin:0 auto;}
+  h1,h2,.serif{font-family:'Fraunces',serif;}
 
   /* HEADER */
-  .header { margin-bottom: 1.5rem; }
-  .logo-area { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: #1E345F; }
-  .logo-text { font-size: 12px; font-weight: 600; color: #666; letter-spacing: 0.08em; text-transform: uppercase; }
-  .title { font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; }
-  .subtitle { font-size: 13px; color: #888; margin-top: 4px; }
+  .top{margin-bottom:1.3rem;}
+  .logo{height:32px;display:block;margin-bottom:7px;}
+  .top-meta{font-size:11.5px;color:var(--ink-soft);}
+  .headline{font-size:26px;font-weight:600;line-height:1.18;color:var(--ink);font-family:'Fraunces';}
+  .sub{font-size:13.5px;color:var(--ink-soft);margin-top:6px;line-height:1.5;margin-bottom:1.3rem;}
 
-  /* CONTACT BAR */
-  .contact-bar {
-    background: #1E345F;
-    border-radius: 12px;
-    padding: 0.9rem 1.25rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+  /* TOGGLE — neutro */
+  .toggle{position:relative;display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:1rem;}
+  .toggle-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:var(--ink);border-radius:8px;transition:transform .28s cubic-bezier(.4,0,.2,1);}
+  .toggle[data-cat="veiculo"] .toggle-thumb{transform:translateX(100%);}
+  .toggle button{position:relative;flex:1;border:none;background:none;padding:9px 0;font-family:'Inter';font-size:13.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;z-index:1;transition:color .2s;}
+  .toggle button.on{color:#fff;}
+
+  /* CONTACT — neutro, sem preenchimento colorido */
+  .contact{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:.85rem 1.1rem;margin-bottom:1.4rem;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .contact-txt{font-size:12px;color:var(--ink-soft);}
+  .contact-phone{font-size:14px;font-weight:700;color:var(--ink);}
+  .contact a{color:inherit;text-decoration:none;}
+  .wa{background:var(--ink);color:#fff;font-size:11.5px;font-weight:700;padding:7px 14px;border-radius:99px;white-space:nowrap;text-decoration:none;}
+
+  /* TILE GRID */
+  .cat-label{font-size:11px;font-weight:600;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.1rem;}
+  .tile{
+    background:var(--surface);border:1px solid var(--line);border-top:2.5px solid var(--navy);border-radius:14px;
+    padding:1.1rem .9rem .9rem;cursor:pointer;position:relative;overflow:hidden;
+    transition:transform .12s, box-shadow .12s, border-color .12s;
+    display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:130px;
   }
-  .contact-bar .contact-text { font-size: 13px; color: #fff; font-weight: 500; }
-  .contact-bar .contact-phone { font-size: 14px; font-weight: 700; color: #fff; }
-  .contact-bar a { color: #fff !important; text-decoration: none !important; }
-  .contact-bar .wa-btn { color: #1E345F !important; }
-  .wa-btn {
-    background: #fff;
-    color: #1E345F;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 99px;
-    text-decoration: none;
-    white-space: nowrap;
-  }
+  [data-cat="veiculo"] .tile{border-top-color:var(--veic-deep);}
+  .tile:active{transform:scale(.96);}
+  .tile:hover{box-shadow:0 3px 12px rgba(0,0,0,.06);}
+  .tile-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--neutral);}
+  .tile-title{font-size:13px;font-weight:700;line-height:1.25;color:var(--ink);}
+  .tile-desc{font-size:10.5px;color:var(--ink-soft);line-height:1.4;}
+  .tile-chip{position:absolute;bottom:.75rem;right:.75rem;font-size:9px;font-weight:600;padding:3px 8px;border-radius:99px;background:var(--neutral);color:var(--ink-soft);}
+  .tile-chip.soon{color:#A8A192;}
 
-  /* HOME — MODALITY GRID */
-  .home-label { font-size: 12px; font-weight: 600; color: #999; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
-  .mod-card {
-    background: #fff;
-    border: 1px solid #e8e8e3;
-    border-radius: 14px;
-    padding: 1.1rem 1rem;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .mod-card:hover { border-color: #1E345F; box-shadow: 0 2px 8px rgba(30,52,95,0.08); }
-  .mod-icon { font-size: 22px; }
-  .mod-title { font-size: 13px; font-weight: 600; color: #111; line-height: 1.3; }
-  .mod-desc { font-size: 11px; color: #999; line-height: 1.4; }
-  .mod-card.outro { grid-column: span 2; flex-direction: row; align-items: center; background: #1E345F; border-color: #1E345F; }
-  .mod-card.outro .mod-title { color: #fff; }
-  .mod-card.outro .mod-desc { color: rgba(255,255,255,0.7); }
-  .mod-card.outro .mod-arrow { margin-left: auto; color: rgba(255,255,255,0.6); font-size: 16px; }
+  .outro{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;margin-bottom:1.5rem;cursor:pointer;}
+  .outro-ic{width:38px;height:38px;border-radius:10px;background:var(--neutral);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .outro-txt{flex:1;}
+  .outro-title{font-size:13.5px;font-weight:600;color:var(--ink);}
+  .outro-desc{font-size:11.5px;color:var(--ink-soft);margin-top:1px;}
+  .outro-arrow{color:var(--ink-soft);font-size:17px;}
 
-  /* DETAIL VIEW */
-  .detail { display: none; }
-  .detail.active { display: block; }
+  .foot{font-size:11.5px;color:var(--ink-soft);line-height:1.6;padding-top:14px;border-top:1px solid var(--line);}
+  .foot b{color:#8f8877;}
 
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #1E345F;
-    cursor: pointer;
-    margin-bottom: 1.25rem;
-    background: none;
-    border: none;
-    padding: 0;
-  }
-  .back-btn::before { content: '←'; font-size: 15px; }
+  /* DETAIL */
+  .detail{display:none;}
+  .detail.active{display:block;}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--navy);background:none;border:none;cursor:pointer;margin-bottom:1.3rem;padding:0;}
+  .detail.veic .back{color:var(--veic-deep);}
+  .back::before{content:'←';}
+  .d-head{display:flex;align-items:center;gap:13px;margin-bottom:1.3rem;}
+  .d-icon{width:46px;height:46px;border-radius:12px;background:var(--neutral);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .d-title{font-size:19px;font-weight:600;font-family:'Fraunces';}
+  .d-sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
 
-  .detail-title { font-size: 20px; font-weight: 600; color: #111; margin-bottom: 4px; }
-  .detail-subtitle { font-size: 13px; color: #888; margin-bottom: 1.25rem; }
+  .steps{display:flex;flex-direction:column;gap:9px;margin-bottom:1.2rem;}
+  .step{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+  .step.active{border-left-color:var(--navy);}
+  .detail.veic .step.active{border-left-color:var(--veic-deep);}
+  .step-h{display:flex;align-items:center;gap:11px;padding:.85rem 1.1rem;}
+  .step-n{width:24px;height:24px;border-radius:50%;background:var(--neutral);color:var(--ink);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step.active .step-n{background:var(--navy);color:#fff;}
+  .detail.veic .step.active .step-n{background:var(--veic-deep);color:#fff;}
+  .step-t{font-size:13.5px;font-weight:600;flex:1;}
+  .step-a{font-size:10px;color:#bbb;transition:transform .2s;}
+  .step.active .step-a{transform:rotate(90deg);}
+  .step-b{display:none;padding:0 1.1rem 1rem;}
+  .step.active .step-b{display:block;}
+  .step-b-in{padding-top:11px;border-top:1px solid var(--line);}
 
-  /* SCENARIO TABS */
-  .tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .tab {
-    font-size: 12px; font-weight: 600;
-    padding: 5px 14px;
-    border-radius: 99px;
-    border: 1.5px solid #e8e8e3;
-    background: #fff;
-    color: #888;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .tab.active { background: #1E345F; border-color: #1E345F; color: #fff; }
+  .item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+  .item:last-child{margin-bottom:0;}
+  .idot{width:5px;height:5px;border-radius:50%;background:var(--navy);margin-top:7px;flex-shrink:0;}
+  .detail.veic .idot{background:var(--veic-deep);}
+  .itxt{font-size:12.5px;color:#4c4738;line-height:1.55;}
+  .itxt b{color:var(--ink);font-weight:600;}
 
-  .scenario { display: none; }
-  .scenario.active { display: block; }
+  .taglbl{display:block;font-size:10.5px;font-weight:700;letter-spacing:.03em;margin-bottom:9px;}
+  .taglbl.warn{color:var(--warn);}
+  .taglbl.info{color:var(--navy);}
+  .detail.veic .taglbl.info{color:var(--veic-deep);}
 
-  /* ACCORDION */
-  .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
-  .step-card {
-    background: #fff;
-    border: 1px solid #e8e8e3;
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .step-card.active { border-color: #1E345F; }
-  .step-header {
-    display: flex; align-items: center; gap: 12px;
-    padding: 1rem 1.25rem;
-  }
-  .step-num {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: #E8EDF5; color: #1E345F;
-    font-size: 12px; font-weight: 600;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; transition: background 0.2s, color 0.2s;
-  }
-  .step-card.active .step-num { background: #1E345F; color: #fff; }
-  .step-title { font-size: 14px; font-weight: 600; color: #111; flex: 1; }
-  .step-arrow { font-size: 11px; color: #bbb; transition: transform 0.2s, color 0.2s; display: inline-block; }
-  .step-card.active .step-arrow { transform: rotate(90deg); color: #1E345F; }
-  .step-body { display: none; padding: 0 1.25rem 1rem; border-top: 1px solid #f0f0eb; }
-  .step-body-inner { padding-top: 12px; }
-  .step-card.active .step-body { display: block; }
+  .tl{display:flex;flex-direction:column;}
+  .tl-i{display:flex;gap:11px;}
+  .tl-l{display:flex;flex-direction:column;align-items:center;}
+  .tl-c{width:8px;height:8px;border-radius:50%;background:var(--navy);margin-top:4px;flex-shrink:0;}
+  .detail.veic .tl-c{background:var(--veic-deep);}
+  .tl-conn{width:1.5px;background:var(--line);flex:1;min-height:16px;}
+  .tl-i:last-child .tl-conn{display:none;}
+  .tl-content{padding-bottom:13px;}
+  .tl-t{font-size:12.5px;font-weight:600;color:var(--ink);}
+  .tl-d{font-size:11.5px;color:var(--ink-soft);margin-top:1px;line-height:1.4;}
 
-  /* ITEMS */
-  .item { display: flex; gap: 8px; margin-bottom: 9px; align-items: flex-start; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: #1E345F; margin-top: 6px; flex-shrink: 0; }
-  .item-text { font-size: 13px; color: #555; line-height: 1.55; }
-  .item-text strong { color: #222; font-weight: 600; }
+  .aside-note{border-left:2.5px solid var(--navy);padding:2px 0 2px 12px;margin-top:8px;font-size:11.5px;color:var(--ink-soft);line-height:1.5;}
+  .detail.veic .aside-note{border-color:var(--veic-deep);}
 
-  /* TAG */
-  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; letter-spacing: 0.02em; }
-  .tag-warn { background: #FEF3E2; color: #7A4A10; }
-  .tag-info { background: #E8EDF5; color: #1E345F; }
-  .tag-ok { background: #E6F4EA; color: #1E6B3C; }
-
-  /* TIMELINE */
-  .timeline { display: flex; flex-direction: column; }
-  .tl-item { display: flex; gap: 12px; }
-  .tl-line { display: flex; flex-direction: column; align-items: center; }
-  .tl-circle { width: 10px; height: 10px; border-radius: 50%; background: #1E345F; flex-shrink: 0; margin-top: 5px; }
-  .tl-connector { width: 2px; background: #A0B0CC; flex: 1; min-height: 18px; }
-  .tl-item:last-child .tl-connector { display: none; }
-  .tl-content { padding-bottom: 14px; }
-  .tl-title { font-size: 13px; font-weight: 600; color: #222; }
-  .tl-desc { font-size: 12px; color: #888; margin-top: 2px; line-height: 1.4; }
-
-  /* PRAZO BOX */
-  .prazo-box {
-    background: #fff; border: 1px solid #e8e8e3; border-radius: 14px;
-    padding: 1rem 1.25rem; margin-bottom: 1.25rem;
-    display: flex; gap: 14px; align-items: center;
-  }
-  .prazo-num { font-size: 36px; font-weight: 700; color: #1E345F; line-height: 1; }
-  .prazo-unit { font-size: 12px; color: #1E345F; font-weight: 600; }
-  .prazo-label { font-size: 13px; color: #777; line-height: 1.5; }
-  .prazo-label strong { display: block; font-size: 14px; color: #111; font-weight: 600; margin-bottom: 2px; }
-
-  /* ALERT BOX */
-  .alert-box {
-    background: #FEF3E2; border: 1px solid #F5C97A; border-radius: 12px;
-    padding: 0.9rem 1.1rem; margin-bottom: 1rem;
-    font-size: 13px; color: #7A4A10; line-height: 1.55;
-  }
-  .alert-box strong { font-weight: 600; color: #633806; }
-
-  /* FOOTER */
-  .footer-note {
-    font-size: 12px; color: #aaa; line-height: 1.6;
-    padding-top: 14px; border-top: 1px solid #e8e8e3;
-  }
-  .footer-note strong { color: #888; font-weight: 600; }
-
-  /* OUTRO CARD */
-  .outro-box {
-    background: #fff; border: 1px solid #e8e8e3; border-radius: 14px;
-    padding: 1.25rem; text-align: center; margin-bottom: 1.25rem;
-  }
-  .outro-box .outro-icon { font-size: 32px; margin-bottom: 8px; }
-  .outro-box p { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 16px; }
-  .outro-box a {
-    display: inline-block; background: #1E345F; color: #fff;
-    font-size: 13px; font-weight: 600; padding: 10px 24px;
-    border-radius: 99px; text-decoration: none;
-  }
+  .prazo{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem;margin-bottom:1.2rem;display:flex;gap:13px;align-items:center;}
+  .p-num{font-size:28px;font-weight:600;color:var(--ink);line-height:1;font-family:'Fraunces';white-space:nowrap;}
+  .p-unit{font-size:10.5px;color:var(--ink-soft);text-align:center;font-weight:600;}
+  .p-label{font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+  .p-label b{display:block;font-size:13.5px;color:var(--ink);font-weight:600;margin-bottom:2px;}
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;padding-top:13px;border-top:1px solid var(--line);}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo-area">
-      <div class="logo-dot"></div>
-      <span class="logo-text">Redecon Consórcios</span>
-    </div>
-    <div class="title">Como usar seu crédito</div>
-    <div class="subtitle">Selecione a finalidade para ver como funciona</div>
-  </div>
-
-  <!-- CONTACT BAR -->
-  <div class="contact-bar">
-    <div>
-      <div class="contact-text">Dúvidas? Fale com a gente</div>
-      <div class="contact-phone"><a href="tel:+554630253227">(46) 3025-3227</a></div>
-    </div>
-    <a class="wa-btn" href="https://wa.me/554630253227" target="_blank">WhatsApp</a>
-  </div>
-
   <!-- HOME -->
   <div id="home">
-    <div class="home-label">Qual é a sua finalidade?</div>
-    <div class="grid">
-      <div class="mod-card" onclick="showDetail('aquisicao')">
-        <div class="mod-icon">🏠</div>
-        <div class="mod-title">Aquisição de imóvel</div>
-        <div class="mod-desc">Compra de imóvel pronto de um vendedor</div>
+    <div class="top">
+      <img class="logo" src="data:image/png;base64,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" alt="Redecon Consórcios">
+      <div class="top-meta">Corretora autorizada HS Consórcios — Pato Branco, PR</div>
+    </div>
+
+    <div class="headline">Como usar seu crédito</div>
+    <div class="sub">Selecione o bem e a finalidade para ver como funciona</div>
+
+    <div class="toggle" id="toggle" data-cat="imovel">
+      <div class="toggle-thumb"></div>
+      <button class="on" onclick="setCat('imovel')">🏠 Imóvel</button>
+      <button onclick="setCat('veiculo')">🚗 Veículo</button>
+    </div>
+
+    <div class="contact">
+      <div>
+        <div class="contact-txt">Dúvidas? Fale com a gente</div>
+        <div class="contact-phone"><a href="tel:+554630253227">(46) 3025-3227</a></div>
       </div>
-      <div class="mod-card" onclick="showDetail('construcao')">
-        <div class="mod-icon">🏗️</div>
-        <div class="mod-title">Construção</div>
-        <div class="mod-desc">Construção, reforma ou ampliação</div>
-      </div>
-      <div class="mod-card" onclick="showDetail('reembolso')">
-        <div class="mod-icon">💰</div>
-        <div class="mod-title">Reembolso</div>
-        <div class="mod-desc">Imóvel já comprado à vista após contemplação</div>
-      </div>
-      <div class="mod-card" onclick="showDetail('quitacao')">
-        <div class="mod-icon">📄</div>
-        <div class="mod-title">Quitação de financiamento</div>
-        <div class="mod-desc">Uso do crédito para quitar financiamento ativo</div>
-      </div>
-      <div class="mod-card" onclick="showDetail('leilao')">
-        <div class="mod-icon">🔨</div>
-        <div class="mod-title">Imóvel de leilão</div>
-        <div class="mod-desc">Arrematação de imóvel em leilão judicial ou extrajudicial</div>
-      </div>
-      <div class="mod-card outro" onclick="showDetail('outro')">
-        <div class="mod-icon">💬</div>
-        <div style="flex:1">
-          <div class="mod-title">Outro tipo</div>
-          <div class="mod-desc">Fale diretamente com o escritório</div>
+      <a class="wa" href="https://wa.me/554630253227" target="_blank">WhatsApp</a>
+    </div>
+
+    <!-- IMÓVEL -->
+    <div class="cat-block" data-cat="imovel">
+      <div class="cat-label">Finalidade — Imóvel</div>
+      <div class="grid">
+        <div class="tile" onclick="showDetail('aquisicao-imovel')">
+          <div class="tile-icon">🏠</div>
+          <div class="tile-title">Aquisição de imóvel</div>
+          <div class="tile-desc">Compra de imóvel pronto de um vendedor</div>
+          <div class="tile-chip">6 etapas</div>
         </div>
-        <div class="mod-arrow">→</div>
+        <div class="tile" onclick="showDetail('em-breve')">
+          <div class="tile-icon">🏗️</div>
+          <div class="tile-title">Construção</div>
+          <div class="tile-desc">Construção, reforma ou ampliação</div>
+          <div class="tile-chip soon">em breve</div>
+        </div>
+        <div class="tile" onclick="showDetail('em-breve')">
+          <div class="tile-icon">💰</div>
+          <div class="tile-title">Reembolso</div>
+          <div class="tile-desc">Imóvel já comprado à vista</div>
+          <div class="tile-chip soon">em breve</div>
+        </div>
+        <div class="tile" onclick="showDetail('em-breve')">
+          <div class="tile-icon">📄</div>
+          <div class="tile-title">Quitação de financiamento</div>
+          <div class="tile-desc">Uso do crédito para quitar financiamento</div>
+          <div class="tile-chip soon">em breve</div>
+        </div>
+        <div class="tile" onclick="showDetail('em-breve')">
+          <div class="tile-icon">🔨</div>
+          <div class="tile-title">Imóvel de leilão</div>
+          <div class="tile-desc">Arrematação judicial ou extrajudicial</div>
+          <div class="tile-chip soon">em breve</div>
+        </div>
       </div>
     </div>
 
-    <div class="footer-note">
-      <strong>Redecon</strong> conduz o processo operacional e oferece suporte técnico. A veracidade das informações, regularidade documental e pagamento de todas as taxas são de inteira responsabilidade do consorciado.<br><br>
+    <!-- VEÍCULO -->
+    <div class="cat-block" data-cat="veiculo" style="display:none;">
+      <div class="cat-label">Finalidade — Veículo</div>
+      <div class="grid">
+        <div class="tile" onclick="showDetail('aquisicao-veiculo')">
+          <div class="tile-icon">🚗</div>
+          <div class="tile-title">Aquisição de veículo</div>
+          <div class="tile-desc">Compra de veículo 0km ou seminovo</div>
+          <div class="tile-chip">7 etapas</div>
+        </div>
+        <div class="tile" onclick="showDetail('substituicao-veiculo')">
+          <div class="tile-icon">🔁</div>
+          <div class="tile-title">Substituição de garantia</div>
+          <div class="tile-desc">Troca do bem que garante a cota</div>
+          <div class="tile-chip">7 etapas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outro" onclick="showDetail('em-breve')">
+      <div class="outro-ic">💬</div>
+      <div class="outro-txt"><div class="outro-title">Outro tipo</div><div class="outro-desc">Fale diretamente com o escritório</div></div>
+      <div class="outro-arrow">→</div>
+    </div>
+
+    <div class="foot">
+      <b>Redecon</b> conduz o processo operacional e oferece suporte técnico. A veracidade das informações, regularidade documental e pagamento de todas as taxas são de inteira responsabilidade do consorciado.<br><br>
       Rua Goianases, 536 – Pato Branco &nbsp;|&nbsp; rede.con@hotmail.com
     </div>
   </div>
 
-  <!-- ===================== AQUISIÇÃO ===================== -->
-  <div id="detail-aquisicao" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Aquisição de imóvel</div>
-    <div class="detail-subtitle">Compra de imóvel pronto com crédito do consórcio</div>
-
+  <!-- DETALHE: AQUISIÇÃO IMÓVEL -->
+  <div id="detail-aquisicao-imovel" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🏠</div><div><div class="d-title">Aquisição de imóvel</div><div class="d-sub">Compra de imóvel pronto com crédito do consórcio</div></div></div>
     <div class="steps">
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">1</div>
-          <div class="step-title">Pré-análise estratégica</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="item"><div class="dot"></div><div class="item-text">Verificamos preventivamente a <strong>matrícula do imóvel</strong>, certidões negativas e documentação de renda.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text">Identificamos possíveis gargalos <strong>antes do envio oficial</strong> à administradora.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text">A <strong>decisão final de aprovação</strong> é de competência exclusiva da HS Consórcios.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise estratégica</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Verificamos preventivamente a <b>matrícula do imóvel</b>, certidões negativas e documentação de renda.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Identificamos possíveis gargalos <b>antes do envio oficial</b> à administradora.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">A <b>decisão final de aprovação</b> é de competência exclusiva da HS Consórcios.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">2</div>
-          <div class="step-title">Requisitos do comprador</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Renda:</strong> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Composição:</strong> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Restrições:</strong> não pode ter pendências ativas em SPC ou SERASA.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> comprador e cônjuge passam por análise de certidões negativas.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do comprador</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Restrições:</b> não pode ter pendências ativas em SPC ou SERASA.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> comprador e cônjuge passam por análise de certidões negativas.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">3</div>
-          <div class="step-title">Requisitos do vendedor</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> vendedor e cônjuge também passam por análise de certidões negativas.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Pessoa jurídica:</strong> se o vendedor for PJ, serão analisados o Contrato Social e as certidões específicas do CNPJ.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Requisitos do vendedor</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certidões:</b> vendedor e cônjuge também passam por análise de certidões negativas.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Pessoa jurídica:</b> se o vendedor for PJ, serão analisados o Contrato Social e as certidões específicas do CNPJ.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">4</div>
-          <div class="step-title">Regularidade do imóvel</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="tag tag-warn">⚠ Atenção</div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Averbação:</strong> toda área construída deve estar 100% averbada na matrícula.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Ônus:</strong> matrícula deve estar livre de hipotecas, penhoras, usufruto ou cláusulas resolutivas.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Garantia:</strong> avaliação da engenharia deve ser igual ou superior ao saldo devedor. A administradora considera <strong>-20% do valor de mercado</strong> como valor de garantia.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Regularidade do imóvel</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl warn">⚠ ATENÇÃO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Averbação:</b> toda área construída deve estar 100% averbada na matrícula.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Ônus:</b> matrícula deve estar livre de hipotecas, penhoras, usufruto ou cláusulas resolutivas.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Garantia:</b> avaliação da engenharia deve ser igual ou superior ao saldo devedor. A administradora considera <b>-20% do valor de mercado</b> como valor de garantia.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">5</div>
-          <div class="step-title">Custas do processo</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="tag tag-info">Responsabilidade do consorciado</div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro (boleto ou desconto do crédito).</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura:</strong> descontado da carta de crédito no pagamento.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>ITBI:</strong> imposto municipal pago à Prefeitura.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> custas cartorárias para averbação da alienação fiduciária.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Seguro do imóvel:</strong> verificado após laudo; se necessário, incluído no contrato.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Certificados digitais:</strong> padrão ICP-Brasil para assinatura do contrato.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de vistoria:</b> avaliação do engenheiro (boleto ou desconto do crédito).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Contrato com força de escritura:</b> descontado da carta de crédito no pagamento.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>ITBI:</b> imposto municipal pago à Prefeitura.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Registro de imóveis:</b> custas cartorárias para averbação da alienação fiduciária.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Seguro do imóvel:</b> verificado após laudo; se necessário, incluído no contrato.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Certificados digitais:</b> padrão ICP-Brasil para assinatura do contrato.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">6</div>
-          <div class="step-title">Etapas do processo</div>
-          <div class="step-arrow">&#9654;</div>
-        </div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="timeline">
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Montagem e triagem</div><div class="tl-desc">Organizamos toda a documentação e abrimos o processo no portal da administradora</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Análises simultâneas</div><div class="tl-desc">Crédito, jurídica e matrícula são analisados em paralelo pela HS</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Vistoria e aprovação</div><div class="tl-desc">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Assinatura do contrato</div><div class="tl-desc">Emissão de certificados digitais e assinatura eletrônica do contrato pelas partes</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Registro de Imóveis</div><div class="tl-desc">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div></div><div class="tl-content"><div class="tl-title">Pagamento liberado</div><div class="tl-desc">Até 72h úteis após a averbação — o recurso é liberado ao vendedor</div></div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="tl">
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Montagem e triagem</div><div class="tl-d">Organizamos toda a documentação e abrimos o processo no portal da administradora</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análises simultâneas</div><div class="tl-d">Crédito, jurídica e matrícula são analisados em paralelo pela HS</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Vistoria e aprovação</div><div class="tl-d">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinatura do contrato</div><div class="tl-d">Emissão de certificados digitais e assinatura eletrônica do contrato pelas partes</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Registro de Imóveis</div><div class="tl-d">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Pagamento liberado</div><div class="tl-d">Até 72h úteis após a averbação — o recurso é liberado ao vendedor</div></div></div>
           </div>
         </div></div>
       </div>
-
     </div>
-
-    <div class="prazo-box">
-      <div style="text-align:center;flex-shrink:0;">
-        <div class="prazo-num">60</div>
-        <div class="prazo-unit">dias</div>
-      </div>
-      <div class="prazo-label">
-        <strong>Prazo médio estimado</strong>
-        Região de Pato Branco, com documentação regularizada. Varia conforme agilidade das partes e prazos do cartório.
-      </div>
-    </div>
-
-    <div class="footer-note">Cada processo tem suas particularidades. Estamos aqui para analisar o seu caso e orientar em cada etapa do caminho.</div>
+    <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">60</div><div class="p-unit">dias</div></div><div class="p-label"><b>Prazo médio estimado</b>Região de Pato Branco, com documentação regularizada. Varia conforme agilidade das partes e prazos do cartório.</div></div>
+    <div class="note">Cada processo tem suas particularidades. Estamos aqui para analisar o seu caso e orientar em cada etapa do caminho.</div>
   </div>
 
-  <!-- ===================== CONSTRUÇÃO ===================== -->
-  <div id="detail-construcao" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Construção / Reforma / Ampliação</div>
-    <div class="detail-subtitle">Selecione o seu cenário</div>
-
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('construcao','a')">Terreno próprio</div>
-      <div class="tab" onclick="showTab('construcao','b')">Comprar terreno + construir</div>
-    </div>
-
-    <!-- CENÁRIO A -->
-    <div id="construcao-a" class="scenario active">
-      <div class="steps">
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Pré-análise estratégica</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">Verificamos a <strong>matrícula do terreno</strong>, certidões negativas e documentação de renda antes do envio oficial.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">A <strong>decisão final de aprovação</strong> é de competência exclusiva da HS Consórcios.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">2</div><div class="step-title">Requisitos do consorciado</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Renda:</strong> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Composição:</strong> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Restrições:</strong> não pode ter pendências ativas em SPC ou SERASA.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">3</div><div class="step-title">Regularidade do imóvel e da obra</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-warn">⚠ Atenção</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Matrícula:</strong> terreno deve estar regularizado e livre de ônus que impeçam a alienação.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Documentação da obra:</strong> deve estar em ordem para dar início ao processo — cada caso será analisado individualmente.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">4</div><div class="step-title">Liberação por etapas</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-ok">Como funciona</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>1ª etapa:</strong> liberada de forma <strong>antecipada</strong>, logo após a aprovação do contrato e averbação da garantia no Registro de Imóveis — o cliente não precisa construir nada antes para receber. Valor máximo de <strong>30% do crédito</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Etapas intermediárias:</strong> liberadas conforme cronograma de obra elaborado pelo engenheiro responsável, com orçamento detalhado. Mínimo de <strong>4 etapas no total</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Última etapa:</strong> mínimo de <strong>10% do crédito</strong>, retida e liberada somente após a averbação final da construção na matrícula.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">5</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-info">Responsabilidade do consorciado</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro a cada etapa (boleto ou desconto do crédito).</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura:</strong> descontado da carta de crédito no pagamento.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> custas cartorárias para averbação da alienação fiduciária.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Seguro do imóvel:</strong> verificado após laudo; se necessário, incluído no contrato.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certificados digitais:</strong> padrão ICP-Brasil para assinatura do contrato.</div></div>
-          </div></div>
-        </div>
-
-      </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">60</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio — 1ª etapa</strong>
-          Região de Pato Branco, com documentação em ordem. As etapas seguintes dependem do andamento da obra.
-        </div>
-      </div>
-    </div>
-
-    <!-- CENÁRIO B -->
-    <div id="construcao-b" class="scenario">
-      <div class="alert-box">
-        <strong>Atenção:</strong> neste cenário, a <strong>1ª etapa da construção precisa ser executada antes</strong> do recebimento do crédito. O reembolso dessa etapa inicial ocorre após o processo ser aprovado pela administradora.
-      </div>
-
-      <div class="steps">
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Pré-análise estratégica</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">Verificamos a <strong>matrícula do terreno</strong> (que passará para o nome do cliente), certidões negativas e documentação de renda.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">A <strong>decisão final de aprovação</strong> é de competência exclusiva da HS Consórcios.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">2</div><div class="step-title">Requisitos do consorciado</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Renda:</strong> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Composição:</strong> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Restrições:</strong> não pode ter pendências ativas em SPC ou SERASA.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">3</div><div class="step-title">Liberação por etapas</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-ok">Como funciona</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>1ª etapa:</strong> executada pelo cliente antes do processo. Após aprovação, a administradora reembolsa essa etapa. Valor máximo de <strong>30% do crédito</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Etapas seguintes:</strong> liberadas conforme cronograma do engenheiro. Mínimo de <strong>4 etapas no total</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Última etapa:</strong> mínimo de <strong>10% do crédito</strong>, retida até averbação final da construção.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">4</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-info">Responsabilidade do consorciado</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>ITBI:</strong> imposto municipal pago à Prefeitura na aquisição do terreno.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro a cada etapa.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura:</strong> descontado da carta de crédito.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> custas cartorárias para averbação da alienação fiduciária.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certificados digitais:</strong> padrão ICP-Brasil para assinatura do contrato.</div></div>
-          </div></div>
-        </div>
-
-      </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">60</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio — 1ª etapa</strong>
-          Após execução inicial da obra e aprovação pela administradora.
-        </div>
-      </div>
-    </div>
-
-    <div class="alert-box" style="background:#E8EDF5;border-color:#A0B0CC;color:#1E345F;">
-      <strong>Reforma e ampliação</strong> são enquadradas dentro do processo de construção. Em situações específicas, analisamos a melhor forma de utilização do crédito para cada caso.
-    </div>
-
-    <div class="footer-note">A documentação necessária é orientada caso a caso. Conte com a Redecon para acompanhar cada detalhe do seu processo.</div>
-  </div>
-
-  <!-- ===================== REEMBOLSO ===================== -->
-  <div id="detail-reembolso" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Reembolso</div>
-    <div class="detail-subtitle">Imóvel adquirido à vista após a contemplação</div>
-
-    <div class="alert-box">
-      <strong>2 condições obrigatórias:</strong><br><br>
-      1. A carta de crédito deve estar <strong>contemplada e em nome do consorciado</strong> antes da compra do imóvel.<br><br>
-      2. Todas as certidões negativas devem estar <strong>em ordem no momento da escritura</strong> — nenhuma dispensa é aceita.
-    </div>
-
+  <!-- DETALHE: AQUISIÇÃO VEÍCULO -->
+  <div id="detail-aquisicao-veiculo" class="detail veic">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🚗</div><div><div class="d-title">Aquisição de veículo</div><div class="d-sub">Compra de veículo 0km ou seminovo com crédito do consórcio</div></div></div>
     <div class="steps">
-
-      <div class="step-card">
-        <div class="step-header"><div class="step-num">1</div><div class="step-title">Valor liberado</div><div class="step-arrow">&#9654;</div></div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="item"><div class="dot"></div><div class="item-text">O valor liberado corresponde ao <strong>menor valor entre o crédito disponível e o valor pago pelo imóvel</strong> conforme escritura.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text">Exemplo: crédito de R$ 300 mil + imóvel de R$ 250 mil → liberado <strong>R$ 250 mil</strong>.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text">Exemplo: crédito de R$ 300 mil + imóvel de R$ 400 mil → liberado <strong>R$ 300 mil</strong>.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Pré-análise estratégica</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Verificamos preventivamente a <b>renda informada</b> e o <b>ano do veículo</b> escolhido, antes do envio oficial à administradora.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Perguntamos sobre eventuais restrições no <b>SPC/Serasa</b> — a consulta oficial é feita apenas pela HS, na análise de crédito.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">A <b>decisão final de aprovação</b> é de competência exclusiva da HS Consórcios.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header"><div class="step-num">2</div><div class="step-title">Requisitos do consorciado</div><div class="step-arrow">&#9654;</div></div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Renda:</strong> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Composição:</strong> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Requisitos do comprador</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Renda:</b> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Composição:</b> é permitido somar renda de cônjuge ou companheiro (se casado ou união estável).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Restrições:</b> não pode ter pendências ativas em SPC ou SERASA.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header"><div class="step-num">3</div><div class="step-title">Regularidade do imóvel</div><div class="step-arrow">&#9654;</div></div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="tag tag-warn">⚠ Atenção</div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Averbação:</strong> toda área construída deve estar 100% averbada na matrícula.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Ônus:</strong> matrícula deve estar livre de hipotecas, penhoras, usufruto ou cláusulas resolutivas.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Garantia:</strong> avaliação da engenharia igual ou superior ao saldo devedor. Administradora considera <strong>-20% do valor de mercado</strong>.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Requisitos do veículo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl warn">⚠ ATENÇÃO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Situação:</b> deve estar quitado (sem alienação fiduciária ativa) e não pode ser de leilão.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Sinistro:</b> não é aceito veículo recuperado de sinistro, de nenhum tipo.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Idade do veículo:</b> automóvel e moto seminovos, até 10 anos (ou 15 com fiador). Veículos pesados e caminhões, até 15 anos (ou 18 com fiador).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Valor:</b> precisa cobrir o saldo devedor da cota (veículo usado) ou o valor do fundo comum (veículo 0km).</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header"><div class="step-num">4</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="tag tag-info">Responsabilidade do consorciado</div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro (boleto ou desconto do crédito).</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura:</strong> descontado da carta de crédito.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> custas cartorárias para averbação da alienação fiduciária.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Seguro do imóvel:</strong> verificado após laudo; se necessário, incluído no contrato.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text"><strong>Certificados digitais:</strong> padrão ICP-Brasil para assinatura do contrato.</div></div>
-          <div class="item"><div class="dot"></div><div class="item-text">O <strong>ITBI não é cobrado novamente</strong> — já foi pago no momento da compra.</div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Análise da administradora</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">A HS analisa a <b>renda</b> e o <b>cadastro</b> (SPC/Serasa) do comprador.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Também realiza a <b>vistoria digital</b> do veículo antes de encaminhar o processo ao comitê.</div></div>
         </div></div>
       </div>
-
-      <div class="step-card">
-        <div class="step-header"><div class="step-num">5</div><div class="step-title">Etapas do processo</div><div class="step-arrow">&#9654;</div></div>
-        <div class="step-body"><div class="step-body-inner">
-          <div class="timeline">
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Pré-análise e montagem</div><div class="tl-desc">Organizamos a documentação e abrimos o processo junto à administradora</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Análise pela administradora</div><div class="tl-desc">Crédito, jurídica e matrícula são avaliados em paralelo pela HS</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Vistoria e aprovação</div><div class="tl-desc">Engenheiro realiza a visita técnica e o comitê emite o parecer final</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Assinatura do contrato</div><div class="tl-desc">Emissão de certificados digitais e assinatura eletrônica do contrato</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Registro de Imóveis</div><div class="tl-desc">O contrato é enviado ao cartório para averbação da alienação fiduciária na matrícula</div></div></div>
-            <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div></div><div class="tl-content"><div class="tl-title">Pagamento na conta do consorciado</div><div class="tl-desc">Até 72h úteis após a averbação — o valor é depositado diretamente para você</div></div></div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Vistoria digital</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Aplica-se apenas a <b>veículos seminovos</b> (não se aplica a 0km). O vendedor recebe um link por <b>SMS e WhatsApp</b> e faz as fotos pelo próprio celular.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">É feita por uma <b>empresa terceirizada</b>, que verifica se há algum impeditivo para a alienação e avalia o <b>estado de conservação</b> do veículo pelas fotos.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de gravame:</b> o valor varia conforme o estado. É uma taxa cobrada pelo DETRAN e pelos demais órgãos responsáveis pela inclusão do gravame.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Vistoria digital:</b> R$ 50,00 para veículos leves e R$ 100,00 para veículos pesados.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Seguro prestamista:</b> obrigatório para pessoa física, calculado sobre o saldo devedor. Mais informações, fale diretamente com a Redecon.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">7</div><div class="step-t">Etapas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="tl">
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Checklist e montagem</div><div class="tl-d">A Redecon emite o checklist, faz a pré-análise quando necessário e monta o processo</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Envio e triagem</div><div class="tl-d">O processo é enviado à HS e passa pela triagem inicial de documentos</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Análises simultâneas</div><div class="tl-d">Crédito, cadastro, vistoria digital do veículo e seguro de vida são analisados em paralelo</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Comitê e aprovação</div><div class="tl-d">O processo é avaliado pelo comitê e o contrato é confeccionado</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div><div class="tl-conn"></div></div><div class="tl-content"><div class="tl-t">Assinaturas e taxas</div><div class="tl-d">Assinatura digital dos contratos e pagamento do gravame, vistoria e seguro</div></div></div>
+            <div class="tl-i"><div class="tl-l"><div class="tl-c"></div></div><div class="tl-content"><div class="tl-t">Gravame e pagamento</div><div class="tl-d">Após a inclusão do gravame e o comunicado de venda ao DETRAN (veículos sem restrições), o recurso é liberado ao vendedor</div></div></div>
           </div>
+          <div class="aside-note">📱 Com todos os documentos digitalizados, o processo pode ser concluído 100% online.</div>
         </div></div>
       </div>
-
     </div>
-
-    <div class="prazo-box">
-      <div style="text-align:center;flex-shrink:0;">
-        <div class="prazo-num">60</div>
-        <div class="prazo-unit">dias</div>
-      </div>
-      <div class="prazo-label">
-        <strong>Prazo médio estimado</strong>
-        Região de Pato Branco, com documentação regularizada.
-      </div>
-    </div>
-
-    <div class="footer-note">Sem vendedor envolvido — o pagamento vai direto para você. Cuidamos de todo o processo para que seja simples e tranquilo.</div>
+    <div class="prazo"><div style="text-align:center;flex-shrink:0;"><div class="p-num">5–6</div><div class="p-unit">dias úteis</div></div><div class="p-label"><b>Prazo médio estimado</b>Em média, com documentação regularizada e agilidade das partes. Pode variar conforme a análise da HS.</div></div>
+    <div class="note">Cada processo tem suas particularidades. Estamos aqui para analisar o seu caso e orientar em cada etapa do caminho.</div>
   </div>
 
-  <!-- ===================== QUITAÇÃO ===================== -->
-  <div id="detail-quitacao" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Quitação de financiamento</div>
-    <div class="detail-subtitle">Selecione o seu cenário</div>
-
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('quitacao','a')">Financiamento próprio</div>
-      <div class="tab" onclick="showTab('quitacao','b')">Financiamento de terceiro</div>
-    </div>
-
-    <!-- CENÁRIO A -->
-    <div id="quitacao-a" class="scenario active">
-      <div class="steps">
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Pré-análise e viabilidade</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">O contrato do financiamento é analisado previamente para verificar o <strong>enquadramento nas regras do Interveniente Quitante</strong> da administradora.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Verificamos matrícula, certidões negativas e documentação de renda antes do envio oficial.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">2</div><div class="step-title">Requisitos do consorciado</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Renda:</strong> comprovação de renda mensal líquida superior a 3x o valor da parcela.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Composição:</strong> é permitido somar renda de cônjuge ou companheiro (se união registrada).</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certidões:</strong> consorciado e cônjuge passam por análise de certidões negativas.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">3</div><div class="step-title">Regularidade do imóvel</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Averbação:</strong> toda área construída deve estar 100% averbada na matrícula.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Garantia:</strong> avaliação da engenharia igual ou superior ao saldo devedor. Administradora considera <strong>-20% do valor de mercado</strong>.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">4</div><div class="step-title">Fluxo de pagamento</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="timeline">
-              <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">HS quita o financiamento</div><div class="tl-desc">Pagamento direto à instituição financeira via Interveniente Quitante</div></div></div>
-              <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Instituição emite termo de quitação</div><div class="tl-desc">Documento que comprova o encerramento do financiamento</div></div></div>
-              <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div><div class="tl-connector"></div></div><div class="tl-content"><div class="tl-title">Retorno ao Registro de Imóveis</div><div class="tl-desc">Cancelamento do gravame do financiamento e inclusão da alienação fiduciária da HS</div></div></div>
-              <div class="tl-item"><div class="tl-line"><div class="tl-circle"></div></div><div class="tl-content"><div class="tl-title">Processo concluído</div><div class="tl-desc">Imóvel vinculado à HS como garantia até o fim do contrato de consórcio</div></div></div>
-            </div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">5</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-info">Responsabilidade do consorciado</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura:</strong> descontado da carta de crédito.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> custas para baixa do gravame anterior e novo registro da alienação fiduciária.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Certificados digitais:</strong> padrão ICP-Brasil.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Não há cobrança de <strong>ITBI</strong> — o imóvel já está no nome do consorciado.</div></div>
-          </div></div>
-        </div>
-
+  <!-- DETALHE: SUBSTITUIÇÃO DE GARANTIA -->
+  <div id="detail-substituicao-veiculo" class="detail veic">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🔁</div><div><div class="d-title">Substituição de garantia</div><div class="d-sub">Troca do veículo que garante a sua cota</div></div></div>
+    <div class="steps">
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">1</div><div class="step-t">Quando se aplica</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Para quem <b>já possui um veículo alienado</b> à cota e quer trocar a garantia por outro, sem precisar quitar antecipadamente.</div></div>
+        </div></div>
       </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">60</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio estimado</strong>
-          Região de Pato Branco, com documentação regularizada.
-        </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">2</div><div class="step-t">Envio dos documentos</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Do novo veículo:</b> 4 fotos (frente e traseira com a placa legível, e das duas laterais) e o documento digital do veículo (CRLV).</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Do consorciado:</b> não é necessário enviar documentos — apenas e-mail, telefone e profissão.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Do atual proprietário do novo veículo:</b> apenas telefone e e-mail.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">3</div><div class="step-t">Requisitos do novo veículo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl warn">⚠ ATENÇÃO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Idade do veículo:</b> até 10 anos para veículos leves e até 15 anos para veículos pesados.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Valor:</b> precisa cobrir o saldo devedor da cota.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">4</div><div class="step-t">Montagem do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">A Redecon reúne a documentação e monta o processo antes de enviar à HS.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">5</div><div class="step-t">Análise da administradora</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">O novo veículo passa por <b>vistoria digital</b>, e a HS analisa se ele está apto para a substituição.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Se aprovado, a HS emite o <b>documento de substituição de garantia</b>.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">6</div><div class="step-t">Gravame e transferência</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <div class="item"><div class="idot"></div><div class="itxt">Para incluir o gravame, é necessário: <b>termo de substituição assinado</b>, taxa do gravame paga, taxa de vistoria paga e taxa de substituição paga.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">Após a inclusão do gravame, o novo veículo é liberado para <b>transferência</b>.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt">O veículo novo precisa <b>obrigatoriamente</b> ser transferido para que o veículo antigo seja liberado da alienação.</div></div>
+        </div></div>
+      </div>
+      <div class="step"><div class="step-h" onclick="toggleStep(this)"><div class="step-n">7</div><div class="step-t">Custas do processo</div><div class="step-a">▶</div></div>
+        <div class="step-b"><div class="step-b-in">
+          <span class="taglbl info">RESPONSABILIDADE DO CONSORCIADO</span>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de gravame:</b> o valor varia conforme o estado, cobrada pelo DETRAN e órgãos competentes.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Vistoria digital:</b> R$ 50,00 para veículos leves e R$ 100,00 para veículos pesados.</div></div>
+          <div class="item"><div class="idot"></div><div class="itxt"><b>Taxa de substituição:</b> 1% do saldo devedor, com valor mínimo de R$ 500,00.</div></div>
+        </div></div>
       </div>
     </div>
-
-    <!-- CENÁRIO B -->
-    <div id="quitacao-b" class="scenario">
-      <div class="alert-box" style="background:#E8EDF5;border-color:#A0B0CC;color:#1E345F;">
-        <strong>Como funciona este cenário:</strong> por envolver dois contratos, o processo passa pelo Registro de Imóveis em dois momentos distintos. Isso é parte natural do fluxo e garante que cada etapa seja formalizada corretamente — o prazo estimado é um pouco maior para acomodar essa tramitação.
-      </div>
-
-      <div class="steps">
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Pré-análise e viabilidade</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">O contrato do financiamento é analisado para verificar o <strong>enquadramento no Interveniente Quitante</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Verificamos matrícula, certidões negativas do consorciado e do vendedor antes do envio.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">2</div><div class="step-title">1º Contrato — Quitação do financiamento</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-ok">Etapa 1</div>
-            <div class="item"><div class="dot"></div><div class="item-text">O vendedor figura como <strong>fiduciário</strong>, ofertando o imóvel em garantia à HS Consórcios.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">A HS efetua o pagamento diretamente ao banco, quitando o financiamento via <strong>Interveniente Quitante</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">A instituição financeira emite o <strong>termo de quitação</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Retorno ao RI: cancelamento do gravame anterior e registro da <strong>alienação fiduciária em favor da HS</strong>.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">3</div><div class="step-title">2º Contrato — Transmissão ao consorciado</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-ok">Etapa 2</div>
-            <div class="item"><div class="dot"></div><div class="item-text">Com a alienação fiduciária da HS já registrada, é confeccionado um instrumento de <strong>cessão de direitos e obrigações</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">O imóvel é transferido ao consorciado — somente neste momento a titularidade muda.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">A HS realiza o pagamento da <strong>diferença do crédito ao vendedor</strong>.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">4</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-info">Responsabilidade do consorciado</div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>ITBI:</strong> imposto municipal pago à Prefeitura, pois há aquisição de imóvel de terceiro.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Taxa de vistoria:</strong> avaliação do engenheiro.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Registro de imóveis:</strong> duas passagens — uma para cada contrato.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Contrato com força de escritura</strong> e <strong>certificados digitais</strong>.</div></div>
-          </div></div>
-        </div>
-
-      </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">90</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio estimado</strong>
-          Um pouco mais de tempo em razão dos dois contratos e das duas passagens pelo Registro de Imóveis — cada etapa sendo cuidadosamente formalizada.
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-note">A viabilidade começa com a análise do contrato de financiamento. Nos chame antes de qualquer decisão — orientamos você desde o primeiro passo.</div>
+    <div class="note">Cada processo tem suas particularidades. Estamos aqui para analisar o seu caso e orientar em cada etapa do caminho.</div>
   </div>
 
-  <!-- ===================== LEILÃO ===================== -->
-  <div id="detail-leilao" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Imóvel de leilão</div>
-    <div class="detail-subtitle">Existem diferentes formas de utilizar o crédito nessa situação</div>
-
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('leilao','a')">Garantia antecipada</div>
-      <div class="tab" onclick="showTab('leilao','b')">Reembolso</div>
-      <div class="tab" onclick="showTab('leilao','c')">Financiamento + Quitação</div>
-    </div>
-
-    <!-- FORMA 1 -->
-    <div id="leilao-a" class="scenario active">
-      <div class="steps">
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Como funciona</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">O cliente utiliza um <strong>imóvel próprio como garantia</strong> para liberar o crédito do consórcio antes do leilão.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Todo o processo de alienação do imóvel próprio precisa estar <strong>concluído antes de participar do leilão</strong> — o pagamento em leilão costuma ser imediato.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Após vencer o leilão, o cliente envia a <strong>Carta de Arrematação</strong> à HS, que programa o pagamento em até <strong>72h úteis</strong>.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">2</div><div class="step-title">Requisitos</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">Carta de crédito <strong>contemplada e em nome do consorciado</strong>.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Imóvel próprio <strong>regularizado e livre de ônus</strong> para ser utilizado como garantia.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">Processo de alienação do imóvel próprio <strong>finalizado antes do leilão</strong>.</div></div>
-          </div></div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">3</div><div class="step-title">Custas do processo</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="tag tag-info">Responsabilidade do consorciado</div>
-            <div class="item"><div class="dot"></div><div class="item-text">Custas da <strong>alienação do imóvel próprio</strong> (vistoria, contrato, registro, certificados).</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Não há ITBI</strong> nesta etapa — o imóvel já está no nome do consorciado.</div></div>
-          </div></div>
-        </div>
-
-      </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">60</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio — alienação do imóvel próprio</strong>
-          Após conclusão, o crédito fica disponível para uso no leilão.
-        </div>
-      </div>
-    </div>
-
-    <!-- FORMA 2 -->
-    <div id="leilao-b" class="scenario">
-      <div class="alert-box">
-        <strong>2 condições obrigatórias:</strong><br><br>
-        1. A carta de crédito deve estar <strong>contemplada e em nome do consorciado</strong> antes da compra no leilão.<br><br>
-        2. Todas as certidões negativas devem estar <strong>em ordem no momento da escritura</strong> — nenhuma dispensa é aceita.
-      </div>
-
-      <div class="steps">
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Como funciona</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">O cliente <strong>arrematа o imóvel à vista</strong> e, após a compra, solicita o reembolso utilizando o crédito do consórcio.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">O valor reembolsado é limitado ao <strong>menor valor entre o crédito disponível e o valor pago</strong> no leilão.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">O processo segue o <strong>fluxo padrão de reembolso</strong>, sem envolvimento de vendedor.</div></div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="prazo-box">
-        <div style="text-align:center;flex-shrink:0;">
-          <div class="prazo-num">60</div>
-          <div class="prazo-unit">dias</div>
-        </div>
-        <div class="prazo-label">
-          <strong>Prazo médio estimado</strong>
-          Região de Pato Branco, seguindo o fluxo padrão de reembolso.
-        </div>
-      </div>
-    </div>
-
-    <!-- FORMA 3 -->
-    <div id="leilao-c" class="scenario">
-      <div class="alert-box">
-        <strong>Atenção:</strong> esta modalidade requer <strong>análise de viabilidade caso a caso</strong> antes de qualquer decisão.
-      </div>
-
-      <div class="steps">
-        <div class="step-card">
-          <div class="step-header"><div class="step-num">1</div><div class="step-title">Como funciona</div><div class="step-arrow">&#9654;</div></div>
-          <div class="step-body"><div class="step-body-inner">
-            <div class="item"><div class="dot"></div><div class="item-text">O cliente <strong>financia o imóvel do leilão</strong> e, posteriormente, utiliza o crédito do consórcio para quitar esse financiamento via Interveniente Quitante.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text"><strong>Ponto crítico:</strong> o consórcio quita apenas <strong>100% do financiamento</strong> — pagamento parcial não é permitido.</div></div>
-            <div class="item"><div class="dot"></div><div class="item-text">É necessário verificar se o saldo devedor do financiamento está dentro do valor do crédito disponível.</div></div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="outro-box" style="margin-top:0;">
-        <p>Antes de tomar qualquer decisão, <strong>fale com o escritório</strong> para analisar a viabilidade do seu caso.</p>
-        <a href="https://wa.me/554630253227" target="_blank">Falar com a Redecon</a>
-      </div>
-    </div>
-
-    <div class="footer-note">Cada situação de leilão é diferente. Antes de participar, fale com a Redecon — planejamos juntos a melhor forma de usar o seu crédito.</div>
-  </div>
-
-  <!-- ===================== OUTRO ===================== -->
-  <div id="detail-outro" class="detail">
-    <button class="back-btn" onclick="goHome()">Voltar</button>
-    <div class="detail-title">Outro tipo de utilização</div>
-    <div class="detail-subtitle">Cada situação tem suas particularidades</div>
-
-    <div class="outro-box">
-      <div class="outro-icon">💬</div>
-      <p>Se a sua situação não se encaixa nas modalidades listadas, entre em contato com o escritório. Analisamos cada caso individualmente e orientamos sobre a melhor forma de utilizar o seu crédito.</p>
-      <a href="https://wa.me/554630253227" target="_blank">Falar com a Redecon</a>
-    </div>
-
-    <div class="footer-note">
-      <strong>Redecon Consórcios</strong><br>
-      Rua Goianases, 536 – Pato Branco<br>
-      (46) 3025-3227 &nbsp;|&nbsp; rede.con@hotmail.com
-    </div>
+  <!-- PLACEHOLDER -->
+  <div id="detail-em-breve" class="detail">
+    <button class="back" onclick="goHome()">Voltar</button>
+    <div class="d-head"><div class="d-icon">🛠️</div><div><div class="d-title">Em construção</div><div class="d-sub">Esta seção entra depois que fecharmos a direção geral</div></div></div>
   </div>
 
 </div>
 
 <script>
-  function goHome() {
-    document.getElementById('home').style.display = 'block';
-    document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
+  function setCat(cat){
+    document.getElementById('toggle').dataset.cat = cat;
+    document.querySelectorAll('.toggle button').forEach((b,i)=>b.classList.toggle('on', (cat==='imovel'&&i===0)||(cat==='veiculo'&&i===1)));
+    document.querySelectorAll('.cat-block').forEach(el=>el.style.display = (el.dataset.cat===cat)?'block':'none');
+  }
+  function showDetail(id){
+    document.getElementById('home').style.display='none';
+    document.querySelectorAll('.detail').forEach(d=>d.classList.remove('active'));
+    document.getElementById('detail-'+id).classList.add('active');
     window.scrollTo(0,0);
   }
-
-  function showDetail(id) {
-    document.getElementById('home').style.display = 'none';
-    document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
-    document.getElementById('detail-' + id).classList.add('active');
+  function goHome(){
+    document.querySelectorAll('.detail').forEach(d=>d.classList.remove('active'));
+    document.getElementById('home').style.display='block';
     window.scrollTo(0,0);
   }
-
-  function showTab(prefix, tab) {
-    const detail = document.getElementById('detail-' + prefix);
-    detail.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    detail.querySelectorAll('.scenario').forEach(s => s.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById(prefix + '-' + tab).classList.add('active');
+  function toggleStep(header){
+    header.parentElement.classList.toggle('active');
   }
-
-  document.querySelectorAll('.step-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const isActive = card.classList.contains('active');
-      const parent = card.closest('.scenario, .detail');
-      if (parent) parent.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
-      else document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
-      if (!isActive) card.classList.add('active');
-    });
-  });
 </script>
 </body>
 </html>
