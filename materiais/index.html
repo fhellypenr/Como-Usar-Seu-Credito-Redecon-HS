@@ -264,8 +264,8 @@ footer{margin-top:40px;padding:22px 0 10px;border-top:1px solid var(--line)}
   <!-- 4. SIMULAÇÃO -->
   <section id="simular" class="rv">
     <div class="mono">04 · O seu caso</div>
-    <h2>Monte em 4 toques.<span class="l2">Eu te mando a conta.</span></h2>
-    <p class="lead">Crédito, parcela e estratégia para o seu caso, direto no WhatsApp.</p>
+    <h2>Monte em 4 toques.<span class="l2">Eu monto o seu plano.</span></h2>
+    <p class="lead">O caminho ideal para o seu objetivo, direto no seu WhatsApp.</p>
     <div class="card wz">
       <div class="wzh"><button class="back" id="back">‹ Voltar</button><div class="bar"><i id="wbar"></i></div><span class="mono" id="wnum">1/4</span></div>
       <div class="step on" data-k="Objetivo"><p>Qual é o seu objetivo?</p><div class="opts">
@@ -381,7 +381,7 @@ $('okBtn').addEventListener('click',()=>go(3));
 function resetQ3(){$('q3').style.display='';$('alerta').classList.remove('on');$('toast').classList.remove('on');}
 function leitura(){const p=ans['Para quando'],r=ans['Valor guardado'];
   if(p==='Em até 1 ano') return r==='Sim'
-    ?'Prazo curto com valor guardado: dá para avaliar lance ou carta contemplada. Eu te mostro qual conta fecha melhor.'
+    ?'Prazo curto com valor guardado: dá para avaliar lance ou carta contemplada. Eu te mostro qual caminho compensa mais.'
     :'Prazo curto sem entrada é onde mais gente faz negócio ruim. Vamos montar um plano realista.';
   if(p==='De 1 a 3 anos') return 'Bom prazo. Meia parcela e fidelidade trabalhando a seu favor até a data.';
   return 'Cenário ideal. Parcela leve e contemplação como parte do plano.';}
