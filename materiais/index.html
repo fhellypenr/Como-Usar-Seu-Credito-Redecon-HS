@@ -325,6 +325,7 @@ footer{margin-top:40px;padding:22px 0 10px;border-top:1px solid var(--line)}
 const WA='https://wa.me/5546999354939?text=';
 const brl=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
 const $=id=>document.getElementById(id);
+const ORIG={bio:'pela bio do Instagram',direct:'pelo direct do Instagram',stories:'pelos Stories'}[new URLSearchParams(location.search).get('o')]||'pelo Instagram';
 function tween(el,to,fmt,ms=450){const from=+el.dataset.v||0;el.dataset.v=to;const t0=performance.now();
   (function f(t){const k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(from+(to-from)*e);if(k<1)requestAnimationFrame(f);})(t0);}
 setTimeout(()=>tween($('anos'),10,v=>Math.round(v),1200),600);
@@ -385,12 +386,12 @@ function leitura(){const p=ans['Para quando'],r=ans['Valor guardado'];
   if(p==='De 1 a 3 anos') return 'Bom prazo. Meia parcela e fidelidade trabalhando a seu favor até a data.';
   return 'Cenário ideal. Parcela leve e contemplação como parte do plano.';}
 function msg(){const l=Object.entries(ans).map(([k,v])=>k+': '+v);if(mexeu)l.push('Aluguel hoje: '+brl(aluguel));
-  return 'Oi, Fhellype! Vim pelo Instagram e quero a minha simulação.\n'+l.join('\n');}
+  return 'Oi, Fhellype! Vim '+ORIG+' e quero a minha simulação.\n'+l.join('\n');}
 function fim(){$('ltxt').textContent=leitura();
   $('chipz').innerHTML=Object.entries(ans).map(([k,v])=>'<span>'+(k==='Valor guardado'?(v==='Sim'?'Com valor guardado':'Sem valor guardado'):v)+'</span>').join('')+(mexeu?'<span>Aluguel '+brl(aluguel)+'</span>':'');
   $('waSim').href=WA+encodeURIComponent(msg());}
-$('waDireto').addEventListener('click',()=>{$('waDireto').href=WA+encodeURIComponent(mexeu?'Oi, Fhellype! Vim pelo Instagram. Pago '+brl(aluguel)+' de aluguel e quero saber quanto isso vira de crédito.':'Oi, Fhellype! Vim pelo Instagram e tenho interesse em consórcio.');});
-$('waDireto').href=WA+encodeURIComponent('Oi, Fhellype! Vim pelo Instagram e tenho interesse em consórcio.');
+$('waDireto').addEventListener('click',()=>{$('waDireto').href=WA+encodeURIComponent(mexeu?'Oi, Fhellype! Vim '+ORIG+'. Pago '+brl(aluguel)+' de aluguel e quero saber quanto isso vira de crédito.':'Oi, Fhellype! Vim '+ORIG+' e tenho interesse em consórcio.');});
+$('waDireto').href=WA+encodeURIComponent('Oi, Fhellype! Vim '+ORIG+' e tenho interesse em consórcio.');
 
 // revelar ao rolar, barra de progresso e botão fixo
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
